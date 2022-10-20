@@ -1,65 +1,77 @@
-// x MILESTONE 0:
-// Creare l’array di oggetti con le informazioni fornite.
-
-// MILESTONE 1:
-// Stampare su console le informazioni di nome, ruolo e la stringa della foto
-
-// MILESTONE 2:
-// Stampare le stesse informazioni su DOM sottoforma di stringhe
-
-// BONUS 1:
-// Trasformare la stringa foto in una immagine effettiva
-
-// BONUS 2:
-// Organizzare i singoli membri in card/schede e stilarli a vostro gusto 
-
-// BONUS 3:
-// Aggiungere attraverso un form un membro al team
-
-// Consigli del giorno:
-// Ragioniamo come sempre a step.
-// Prima la logica in italiano e poi traduciamo in codice.
-// E ricordiamoci che console.log() è nostro amico!
-
 const team = [
     {
         'name': 'Wayne',
         'surname': 'Branett',
         'role': 'Founder & CO',
-        foto: '<img src="./img/wayne-barnett-founder-ceo.jpg" alt=""></img>'
+        'photo': '<img src="./img/wayne-barnett-founder-ceo.jpg" alt=""></img>'
     },
     {
         'name': 'Angela',
         'surname': 'Caroll',
         'role': 'Chief Editor',
-        foto: '<img src="./img/angela-caroll-chief-editor.jpg" alt="">'
+        'photo': '<img src="./img/angela-caroll-chief-editor.jpg" alt="">'
     },
     {
         'name': 'Walter',
         'surname': 'Gordon',
         'role': 'Office Manager',
-        foto: '<img src="./img/walter-gordon-office-manager.jpg" alt="">'
+        'photo': '<img src="./img/walter-gordon-office-manager.jpg" alt="">'
     },
     {
         'name': 'Angela',
         'surname': 'Lopez',
         'role': 'Social Media Manager',
-        foto: '<img src="./img/angela-lopez-social-media-manager.jpg" alt="">'
+        'photo': '<img src="./img/angela-lopez-social-media-manager.jpg" alt="">'
     },
     {
         'name': 'Scott',
         'surname': 'Estrada',
         'role': 'Developer',
-        foto: '<img src="./img/scott-estrada-developer.jpg" alt="">'
+        'photo': '<img src="./img/scott-estrada-developer.jpg" alt="">'
     },
     {
-        'name': 'Brabara',
+        'name': 'Barbara',
         'surname': 'Ramos',
         'role': 'Graphic Developer',
-        foto: '<img src="./img/barbara-ramos-graphic-designer.jpg" alt="">'
+        'photo': '<img src="./img/barbara-ramos-graphic-designer.jpg" alt="">'
     }
 ];
 
-for (let value of team) {
-    console.log('nome: ' + value.name + 'cognome: ' + value.surname + ' ruolo: ' + value.role + ', foto: ' + value.foto);
+// stampare il team in console
+for (let element of team) {
+    for (let key in element) {
+        console.log(`${key}: ${element[key]}`)
+    }
+};
+
+// prendo il .my-container e gli appendo il div con le carte
+const container = document.querySelector('.my-container');
+const cards = addElementClassHTML('div', 'cards', container);//Funzione in libreria
+
+for (let element of team) {
+    addComponent(element);
+}
+
+//funzione che aggiunge un nuovo componente
+function addComponent(element) {
+    const card = addElementClassHTML('div', 'item', cards);
+    for (let key in element) {
+        if (key == 'name') {
+            const innerCardName = addElementClassHTML('div', 'name', card);
+            innerCardName.classList.add('text-center');
+            innerCardName.innerHTML = `${element[key]}`;
+        } else if (key == 'surname') {
+            const innerCardSurname = addElementClassHTML('div', 'surname', card);
+            innerCardSurname.classList.add('text-center');
+            innerCardSurname.innerHTML = ` ${element[key]}`;
+        } else if (key == 'role') {
+            const innerCardRole = addElementClassHTML('div', 'role', card);
+            innerCardRole.innerHTML = `${element[key]}`;
+        } else if (key == 'photo') {
+            const innerCardPhoto = document.createElement('div');
+            innerCardPhoto.classList.add('photo');
+            innerCardPhoto.innerHTML = `${element[key]}`;
+            card.prepend(innerCardPhoto);
+        }
+    }
 }

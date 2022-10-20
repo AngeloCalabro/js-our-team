@@ -33,3 +33,11 @@ function removeFirstNotification() {
     const alertToRemove = document.querySelector('.alert');
     if (alertToRemove) alertToRemove.remove();
 }
+
+//funzione che crea un TAG, CLASSE e lo appende al genitore
+function addElementClassHTML(tagElement, className, fatherElement) {
+    const tag = document.createElement(tagElement);
+    tag.className = className;
+    fatherElement.append(tag);
+    return tag;
+}
